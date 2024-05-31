@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "962508928465",
+    "project_id": "nubartf-92c12",
+    "storage_bucket": "nubartf-92c12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962508928465:android:c4f54f4a251e52746ddcf0",
+        "android_client_info": {
+          "package_name": "com.agencianuba.nubartf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXF22JJLUUs2RjuSZrJy4NxHLo52yzni0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
