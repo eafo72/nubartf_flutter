@@ -21,7 +21,7 @@ import 'views/credential.dart';
 import 'views/program.dart';
 import 'views/daydetails.dart';
 import 'views/targets.dart';
-import 'views/targetdetail.dart';
+import 'views/targetDetail.dart';
 import 'views/travelMoney.dart';
 
 import 'dbviews/databaseMenu.dart';

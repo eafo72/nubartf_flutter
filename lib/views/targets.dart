@@ -62,7 +62,7 @@ class _TargetsState extends State<Targets> {
 
     //objetivos de la tienda algunos titulos dicen marca pero son tienda x tiempo ya no se cambiaron
     final data = await SQLHelper.getObjetivosMarcaByRol(_id_rol, _id_marca);
-    //print(data);
+    print(data);
     _objetivos = data;
 
     setState(() {});
