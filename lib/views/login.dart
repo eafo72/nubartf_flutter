@@ -106,7 +106,7 @@ class _LoginState extends State<Login> {
   Future<dynamic> LoginUsuario(String _username, String _passw) async {
     //API
     String url1 =
-        '${ServerInformation.API_ROOT}/usuario.php?opcion=1&username=${_username}&password=${_passw}';
+        '${ServerInformation.API_ROOT}/apiUsuario?opcion=1&username=${_username}&password=${_passw}';
     var response1 = await Dio().get(
       url1,
       options: Options(
