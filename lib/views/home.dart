@@ -114,7 +114,7 @@ class _HomeState extends State<Home> {
     //print(_locationData);
 
     //sincronizacion
-    String url = '${ServerInformation.API_ROOT}/sincronizacion.php';
+    String url = '${ServerInformation.API_ROOT}/apiSincronizacion';
     var response = await Dio().post(
       url,
       options: Options(
@@ -144,7 +144,7 @@ class _HomeState extends State<Home> {
     if (await ConnectivityWrapper.instance.isConnected) {
       //obtener todas las bases de datos
       String url1 =
-          '${ServerInformation.API_ROOT}/exportar.php?id_usuario=${_id_usuario}';
+          '${ServerInformation.API_ROOT}/apiExportar?id_usuario=${_id_usuario}';
       var response1 = await Dio().get(
         url1,
         options: Options(
@@ -654,7 +654,7 @@ class _HomeState extends State<Home> {
       //print(datos);
 
       //enviar datos mision
-      String url2 = '${ServerInformation.API_ROOT}/misiones.php';
+      String url2 = '${ServerInformation.API_ROOT}/apiMisiones';
       var response2 = await Dio().post(
         url2,
         options: Options(
@@ -693,7 +693,7 @@ class _HomeState extends State<Home> {
       for (int i = 0; i < _entregables.length; i++) {
         if (_entregables[i]['entrega_nombre_elemento'] != 'Firma' &&
             _entregables[i]['entrega_nombre_elemento'] != 'Foto') {
-          String url3 = '${ServerInformation.API_ROOT}/entregables.php';
+          String url3 = '${ServerInformation.API_ROOT}/apiEntregables';
           var response3 = await Dio().post(
             url3,
             options: Options(
@@ -743,7 +743,7 @@ class _HomeState extends State<Home> {
               'entrega_hora_cierre': _entregables[i]['entregahoracierre'],
               'entrega_fecha_cierre': _entregables[i]['entregafechacierre']
             });
-            String url3 = '${ServerInformation.API_ROOT}/entregables_files.php';
+            String url3 = '${ServerInformation.API_ROOT}/apiEntregablesFiles';
             var response3 = await Dio().post(url3,
                 options: Options(
                   headers: {
