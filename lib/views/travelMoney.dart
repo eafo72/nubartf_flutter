@@ -87,7 +87,7 @@ class _TravelMoneyState extends State<TravelMoney> {
           'importe': _job_importe.text
         });
 
-        String url3 = '${ServerInformation.API_ROOT}/viaticos.php';
+        String url3 = '${ServerInformation.API_ROOT}/apiViaticos';
         var response3 = await Dio().post(url3,
             options: Options(
               headers: {
@@ -160,7 +160,7 @@ class _TravelMoneyState extends State<TravelMoney> {
 
     //PEDIR LOS MOVIMIENTOS ANTERIORES
     String url =
-        '${ServerInformation.API_ROOT}/viaticos.php?opcion=1&idot=${_idot}';
+        '${ServerInformation.API_ROOT}/apiViaticos?opcion=1&idot=${_idot}';
     var response = await Dio().get(
       url,
       options: Options(
