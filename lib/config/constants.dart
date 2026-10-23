@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 
 class ServerInformation {
-  static const String API_ROOT = 'https://nubartf.com/apis';
+  // Dominio de la app publicada en Base44: sustituye TU-DOMINIO por el de tu app.
+  static const String API_ROOT = 'https://TU-DOMINIO.base44.app/functions';
   static const String IMAGES_ROOT = 'https://www.nubartf.com/assets/images/';
 }
 
