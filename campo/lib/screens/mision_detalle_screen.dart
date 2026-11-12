@@ -59,6 +59,7 @@ class _MisionDetalleScreenState extends State<MisionDetalleScreen> {
   }
 
   Future<void> _cargar() async {
+    if (!mounted) return;
     setState(() => _cargando = true);
     try {
       final datos = await Api.misionDetalle(widget.misionId);
@@ -76,6 +77,7 @@ class _MisionDetalleScreenState extends State<MisionDetalleScreen> {
         _error = null;
       });
       await LocalDb.guardarMision(Mision(_datos!));
+      if (!mounted) return;
       _iniciarSeguimiento();
     } on ApiError catch (e) {
       final guardada = await LocalDb.misionGuardada(widget.misionId);
@@ -112,6 +114,7 @@ class _MisionDetalleScreenState extends State<MisionDetalleScreen> {
   }
 
   Future<bool> _guardar(Map<String, dynamic> cambios, {String? exito}) async {
+    if (!mounted) return false;
     final m = _mision;
     if (m == null) return false;
     setState(() => _guardando = true);
@@ -252,7 +255,7 @@ class _MisionDetalleScreenState extends State<MisionDetalleScreen> {
                 ),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
-                  value: resultado,
+                  initialValue: resultado,
                   isExpanded: true,
                   items: const [
                     DropdownMenuItem(value: 'completada', child: Text('Completada')),
@@ -359,7 +362,7 @@ class _MisionDetalleScreenState extends State<MisionDetalleScreen> {
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  value: causa,
+                  initialValue: causa,
                   isExpanded: true,
                   items: const [
                     DropdownMenuItem(value: 'Riesgo en la tienda', child: Text('Riesgo en la tienda')),
@@ -429,10 +432,12 @@ class _MisionDetalleScreenState extends State<MisionDetalleScreen> {
       lineas: 2,
     );
     if (comentario == null) return;
+    if (!mounted) return;
 
     final bytes = await foto.readAsBytes();
     final dataUrl = 'data:image/jpeg;base64,${base64Encode(bytes)}';
     final geo = await Ubicacion.actual();
+    if (!mounted) return;
 
     setState(() => _guardando = true);
     try {
@@ -506,8 +511,9 @@ class _MisionDetalleScreenState extends State<MisionDetalleScreen> {
     final m = _mision;
     if (m == null) return;
     final firma = await FirmaDialog.abrir(context);
-    if (firma == null) return;
+    if (firma == null || !mounted) return;
     final geo = await Ubicacion.actual();
+    if (!mounted) return;
     setState(() => _guardando = true);
     try {
       final respuesta = await Api.subirEvidencia(m.id, {
@@ -1063,7 +1069,6 @@ class _MisionDetalleScreenState extends State<MisionDetalleScreen> {
   }
 
   Widget _galeria() {
-    final fotos = _entregables.where((e) => e.tipo == 'foto').toList();
     return Tarjeta(
       child: Padding(
         padding: const EdgeInsets.all(14),

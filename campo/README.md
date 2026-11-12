@@ -35,32 +35,20 @@ operaciones viajan con ese token; no hay llaves ni secretos dentro de la app.
 
 ## Android
 
-`android/app/src/main/AndroidManifest.xml`, dentro de `<manifest>`:
+El manifiesto principal ya declara los permisos de Internet, ubicación y cámara
+para builds de depuración y de release.
 
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.CAMERA" />
-```
+Para que los mapas funcionen, agrega dentro de `<application>` en
+`android/local.properties`:
 
-Dentro de `<application>`:
-
-```xml
-<meta-data
-    android:name="com.google.android.geo.API_KEY"
-    android:value="TU_LLAVE_MAPS_ANDROID" />
-```
-
-En `android/app/build.gradle`, dentro de `defaultConfig`:
-
-```gradle
-minSdkVersion 23
+```properties
+MAPS_API_KEY=TU_LLAVE_MAPS_ANDROID
 ```
 
 La llave de Google Maps para la app **no** es la del navegador: crea una llave con
-restricción de aplicación Android (paquete `com.rtf.rtf_campo` + huella SHA-1) en
-Google Cloud Console.
+restricción de aplicación Android que coincida con el `applicationId` configurado
+(actualmente `com.example.rtf_campo`) y su huella SHA-1 en Google Cloud Console. El
+archivo `local.properties` está excluido de Git y no debe versionarse.
 
 ## iOS
 

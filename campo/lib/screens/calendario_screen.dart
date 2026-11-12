@@ -212,11 +212,11 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
           ),
           const SizedBox(height: 8),
           if (delDia.isEmpty)
-            Tarjeta(
+            const Tarjeta(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 26),
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 26),
                 child: Column(
-                  children: const [
+                  children: [
                     Icon(Icons.event_available_outlined, size: 28, color: Tema.borde),
                     SizedBox(height: 8),
                     Text(

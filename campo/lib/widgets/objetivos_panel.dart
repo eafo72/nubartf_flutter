@@ -49,11 +49,11 @@ class ObjetivosPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final grupos = mision.objetivosPorActividad;
     if (_total == 0) {
-      return Tarjeta(
+      return const Tarjeta(
         child: Padding(
-          padding: const EdgeInsets.all(18),
+          padding: EdgeInsets.all(18),
           child: Column(
-            children: const [
+            children: [
               Icon(Icons.checklist_rtl, size: 30, color: Tema.borde),
               SizedBox(height: 8),
               Text(

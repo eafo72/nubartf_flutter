@@ -34,6 +34,7 @@ class _AsistenciaScreenState extends State<AsistenciaScreen> {
   }
 
   Future<void> _cargar() async {
+    if (!mounted) return;
     setState(() => _cargando = true);
     try {
       final lista = await Api.asistencias();
@@ -60,6 +61,7 @@ class _AsistenciaScreenState extends State<AsistenciaScreen> {
         lng: geo?['lng'],
         precision: geo?['precision'],
       );
+      if (!mounted) return;
       _avisar(tipo == 'entrada' ? 'Entrada registrada.' : 'Salida registrada.');
       await _cargar();
     } on ApiError catch (e) {
@@ -151,11 +153,11 @@ class _AsistenciaScreenState extends State<AsistenciaScreen> {
               ),
             )
           else if (_lista.isEmpty)
-            Tarjeta(
+            const Tarjeta(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 30),
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 30),
                 child: Column(
-                  children: const [
+                  children: [
                     Icon(Icons.access_time, size: 28, color: Tema.borde),
                     SizedBox(height: 8),
                     Text(

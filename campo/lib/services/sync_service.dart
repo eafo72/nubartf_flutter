@@ -4,7 +4,15 @@ import 'local_db.dart';
 /// Reenvía lo capturado sin señal. Se llama al abrir la app, al recuperar
 /// conexión y al entrar a la lista de misiones.
 class SyncService {
+  static Future<int>? _sincronizacionEnCurso;
+
   static Future<int> enviarPendientes() async {
+    return _sincronizacionEnCurso ??= _enviarPendientes().whenComplete(() {
+      _sincronizacionEnCurso = null;
+    });
+  }
+
+  static Future<int> _enviarPendientes() async {
     if (!Api.conectado) return 0;
     final pendientes = await LocalDb.cola();
     if (pendientes.isEmpty) return 0;
@@ -15,10 +23,10 @@ class SyncService {
         await _reenviar(p);
         await LocalDb.borrarPendiente(p.id);
         enviados += 1;
-      } on ApiError catch (e) {
-        if (e.sinConexion || e.codigo == 401) break;
-        // Un registro rechazado por el servidor no debe frenar a los demás.
-        await LocalDb.borrarPendiente(p.id);
+      } on ApiError {
+        // Conserva el registro para que no se pierda si el servidor lo rechaza
+        // temporalmente o el usuario debe corregirlo desde el panel.
+        break;
       }
     }
 
@@ -41,7 +49,7 @@ class SyncService {
         await Api.entregableRemoto(p.misionId, p.payload);
         break;
       default:
-        break;
+        throw ApiError('Tipo de registro pendiente no compatible.');
     }
   }
 }

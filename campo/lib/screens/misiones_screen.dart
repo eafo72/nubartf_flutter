@@ -148,7 +148,7 @@ class _MisionesScreenState extends State<MisionesScreen> {
               ),
               const SizedBox(width: 10),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   _AccesoBoton(
                     icono: Icons.calendar_month,

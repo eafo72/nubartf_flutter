@@ -37,6 +37,7 @@ class _ViaticosScreenState extends State<ViaticosScreen> {
   }
 
   Future<void> _cargar() async {
+    if (!mounted) return;
     setState(() => _cargando = true);
     try {
       final viaticos = await Api.viaticos();
@@ -51,7 +52,8 @@ class _ViaticosScreenState extends State<ViaticosScreen> {
     } finally {
       if (mounted) setState(() => _cargando = false);
     }
-    if (_misiones.isEmpty) {
+    if (!mounted || _misiones.isNotEmpty) return;
+    {
       try {
         final misiones = await Api.misiones();
         if (mounted) setState(() => _misiones = misiones);
@@ -107,7 +109,7 @@ class _ViaticosScreenState extends State<ViaticosScreen> {
                   ),
                   const SizedBox(height: 10),
                   DropdownButtonFormField<String>(
-                    value: misionId,
+                    initialValue: misionId,
                     isExpanded: true,
                     decoration: const InputDecoration(labelText: 'Misión (opcional)'),
                     items: [
@@ -179,6 +181,7 @@ class _ViaticosScreenState extends State<ViaticosScreen> {
     setState(() => _guardando = true);
     try {
       await Api.crearViatico(resultado);
+      if (!mounted) return;
       _avisar('Viático registrado.');
       await _cargar();
     } on ApiError catch (e) {
@@ -242,11 +245,11 @@ class _ViaticosScreenState extends State<ViaticosScreen> {
                   ),
                 )
               else if (_lista.isEmpty)
-                Tarjeta(
+                const Tarjeta(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 30),
+                    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 30),
                     child: Column(
-                      children: const [
+                      children: [
                         Icon(Icons.receipt_long_outlined, size: 28, color: Tema.borde),
                         SizedBox(height: 8),
                         Text(
